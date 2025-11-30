@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendar Nueva Cita</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        :root {
+            --primary-blue: #2563eb;
+            --secondary-blue: #3b82f6;
+            --light-blue: #dbeafe;
+            --extra-light-blue: #eff6ff;
+            --dark-blue: #1d4ed8;
+            --accent-blue: #60a5fa;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--extra-light-blue) 0%, #f8fafc 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--text-dark);
+            min-height: 100vh;
+        }
+
+        /* Navbar mejorada */
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%) !important;
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar-brand img {
+            filter: brightness(0) invert(1);
+        }
+
+        .nav-link {
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--light-blue) !important;
+            transform: translateY(-1px);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+        }
+
+        /* Card principal mejorada */
+        .main-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            box-shadow: 
+                0 20px 40px rgba(37, 99, 235, 0.1),
+                0 4px 20px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .main-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 30px 60px rgba(37, 99, 235, 0.15),
+                0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%) !important;
+            border: none;
+            padding: 2rem;
+        }
+
+        .card-header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-body {
+            padding: 2.5rem;
+        }
+
+        /* Form elements mejorados */
+        .form-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-control, .form-select {
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 0.875rem 1rem;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--secondary-blue);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+            background: white;
+        }
+
+        .form-control:hover, .form-select:hover {
+            border-color: var(--accent-blue);
+        }
+
+        /* Botones mejorados */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            border: none;
+            border-radius: 12px;
+            padding: 0.875rem 2rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+            background: linear-gradient(135deg, var(--dark-blue) 0%, var(--primary-blue) 100%);
+        }
+
+        .btn-secondary {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            color: var(--text-dark);
+            border-radius: 12px;
+            padding: 0.875rem 2rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #e2e8f0;
+            border-color: var(--accent-blue);
+            transform: translateY(-2px);
+        }
+
+        /* Alert mejorada */
+        .alert-warning {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 1px solid #f59e0b;
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            color: #92400e;
+            font-weight: 500;
+        }
+
+        .alert-warning i {
+            color: #f59e0b;
+            margin-right: 0.5rem;
+        }
+
+        /* Checkbox personalizado */
+        .form-check-input:checked {
+            background-color: var(--primary-blue);
+            border-color: var(--primary-blue);
+        }
+
+        .form-check-input:focus {
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-check-label {
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        /* Footer mejorado */
+        footer {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: #e2e8f0;
+        }
+
+        footer h5 {
+            color: white;
+            font-weight: 600;
+        }
+
+        footer p {
+            color: #cbd5e1;
+            margin-bottom: 0.5rem;
+        }
+
+        footer i {
+            color: var(--accent-blue);
+            margin-right: 0.5rem;
+        }
+
+        /* Modal mejorado */
+        .modal-content {
+            border-radius: 20px;
+            border: none;
+            overflow: hidden;
+        }
+
+        .modal-header.bg-success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+        }
+
+        .fs-1 {
+            font-size: 4rem !important;
+        }
+
+        /* Animaciones */
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive improvements */
+        @media (max-width: 768px) {
+            .card-body {
+                padding: 1.5rem;
+            }
+            
+            .card-header {
+                padding: 1.5rem;
+            }
+            
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+        }
+
+        /* Loader */
+        .loading {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--light-blue);
+            border-top: 4px solid var(--primary-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading overlay -->
+    <div class="loading" id="loadingOverlay">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="../Paciente/index.HTML">
+                <i class="bi bi-heart-pulse-fill me-2"></i>
+                MedWeb
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../Paciente/index.HTML">
+                            <i class="bi bi-house-fill me-1"></i>Inicio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../Paciente/Analisis.HTML">
+                            <i class="bi bi-file-medical me-1"></i>Mis Análisis
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../Paciente/Citas.HTML">
+                            <i class="bi bi-calendar-check me-1"></i>Mis Citas
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../Inicio-Registro/auth.html">
+                            <i class="bi bi-box-arrow-right me-1"></i>Cerrar Sesión
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-xl-8">
+                <div class="card main-card fade-in">
+                    <div class="card-header">
+                        <h2>
+                            <i class="bi bi-calendar-plus"></i>
+                            Agendar Nueva Cita
+                        </h2>
+                    </div>
+                    <div class="card-body">
+                        <form id="nuevaCitaForm">
+                            <div class="row mb-4">
+                                <div class="col-md-6 mb-3">
+                                    <label for="tipoCita" class="form-label">
+                                        <i class="bi bi-list-ul text-primary"></i>
+                                        Tipo de Cita
+                                    </label>
+                                    <select class="form-select" id="tipoCita" required>
+                                        <option value="" selected disabled>Seleccionar tipo</option>
+                                        <option value="consulta">Consulta General</option>
+                                        <option value="seguimiento">Seguimiento</option>
+                                        <option value="revision">Revisión de Resultados</option>
+                                        <option value="terapia">Terapia Física</option>
+                                        <option value="emergencia">Emergencia</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="doctorCita" class="form-label">
+                                        <i class="bi bi-person-badge text-primary"></i>
+                                        Especialista
+                                    </label>
+                                    <select class="form-select" id="doctorCita" required>
+                                        <option value="" selected disabled>Seleccionar doctor</option>
+                                        <option value="1">Dr. Luis Rodríguez - Traumatólogo</option>
+                                        <option value="2">Dra. Ana Martínez - Ortopedista</option>
+                                        <option value="3">Dr. Roberto Jiménez - Fisioterapeuta</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row mb-4">
+                                <div class="col-md-6 mb-3">
+                                    <label for="fechaCita" class="form-label">
+                                        <i class="bi bi-calendar3 text-primary"></i>
+                                        Fecha
+                                    </label>
+                                    <input type="text" class="form-control" id="fechaCita" placeholder="Seleccionar fecha" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="horaCita" class="form-label">
+                                        <i class="bi bi-clock text-primary"></i>
+                                        Hora
+                                    </label>
+                                    <select class="form-select" id="horaCita" required disabled>
+                                        <option value="" selected disabled>Primero selecciona fecha</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="motivoCita" class="form-label">
+                                    <i class="bi bi-chat-text text-primary"></i>
+                                    Motivo de la Cita
+                                </label>
+                                <textarea class="form-control" id="motivoCita" rows="3" placeholder="Describe el motivo de tu consulta..." required></textarea>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="sintomasCita" class="form-label">
+                                    <i class="bi bi-heart-pulse text-primary"></i>
+                                    Síntomas o Malestar
+                                </label>
+                                <textarea class="form-control" id="sintomasCita" rows="2" placeholder="Describe tus síntomas (opcional)"></textarea>
+                            </div>
+
+                            <div class="mb-4">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="urgenciaCita">
+                                    <label class="form-check-label" for="urgenciaCita">
+                                        <i class="bi bi-exclamation-triangle-fill text-warning me-1"></i>
+                                        Marcar como urgencia
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="alert alert-warning mb-4">
+                                <i class="bi bi-info-circle-fill"></i>
+                                <strong>Importante:</strong> Las citas marcadas como urgencia pueden tener un costo adicional y serán priorizadas en el sistema.
+                            </div>
+
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <a href="../Paciente/Citas.HTML" class="btn btn-secondary">
+                                    <i class="bi bi-x-circle me-1"></i>Cancelar
+                                </a>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-calendar-check me-1"></i>Agendar Cita
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-5 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <h5 class="mb-3">
+                        <i class="bi bi-heart-pulse-fill me-2"></i>
+                        MedWeb
+                    </h5>
+                    <p>Encuentra el medico ideal para ti.</p>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5 class="mb-3">Contacto</h5>
+                    <p><i class="bi bi-telephone-fill"></i> (81) 1234 5678</p>
+                    <p><i class="bi bi-envelope-fill"></i> info@medweb.com</p>
+                    <p><i class="bi bi-geo-alt-fill"></i> Monterrey, N.L.</p>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5 class="mb-3">Horario</h5>
+                    <p><i class="bi bi-clock-fill"></i> Lunes-Viernes: 8:00 - 20:00</p>
+                    <p><i class="bi bi-clock-fill"></i> Sábado: 9:00 - 14:00</p>
+                    <p><i class="bi bi-clock-fill"></i> Domingo: Cerrado</p>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2024 MedWeb. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal de éxito -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title">
+                        <i class="bi bi-check-circle-fill me-2"></i>
+                        Cita Agendada Exitosamente
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center py-5">
+                    <i class="bi bi-calendar-check-fill text-success fs-1 mb-4"></i>
+                    <h4 class="mb-3">¡Perfecto!</h4>
+                    <p class="mb-3">Tu cita ha sido agendada correctamente.</p>
+                    <div class="bg-light p-3 rounded-3 mb-3">
+                        <p class="fw-bold mb-1" id="resumenCita">Detalles de la cita</p>
+                    </div>
+                    <p class="text-muted">Recibirás un correo electrónico con los detalles completos y recordatorios de tu cita.</p>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-success px-4" data-bs-dismiss="modal">
+                        <i class="bi bi-check2 me-1"></i>Entendido
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+    
+
+    <script>
+        // Inicializar datepicker con mejor configuración
+        const fechaCita = flatpickr("#fechaCita", {
+            locale: "es",
+            minDate: "today",
+            maxDate: new Date().fp_incr(90), // Máximo 90 días adelante
+            dateFormat: "d/m/Y",
+            onChange: function(selectedDates, dateStr, instance) {
+                // Cargar horarios cuando se selecciona fecha
+                cargarHorarios();
+            }
+        });
+
+        // Función para cargar horarios disponibles
+        function cargarHorarios() {
+            const horaSelect = document.getElementById('horaCita');
+            const fechaSeleccionada = document.getElementById('fechaCita').value;
+            
+            if (!fechaSeleccionada) return;
+            
+            // Mostrar loading
+            horaSelect.disabled = true;
+            horaSelect.innerHTML = '<option>Cargando horarios...</option>';
+            
+            // Simular carga de horarios (en un sistema real esto vendría de una API)
+            setTimeout(() => {
+                horaSelect.disabled = false;
+                horaSelect.innerHTML = '';
+                
+                const horarios = ['08:00', '09:30', '11:00', '12:30', '15:00', '16:30', '18:00', '19:30'];
+                
+                // Agregar opción por defecto
+                const defaultOption = document.createElement('option');
+                defaultOption.value = '';
+                defaultOption.textContent = 'Seleccionar hora';
+                defaultOption.disabled = true;
+                defaultOption.selected = true;
+                horaSelect.appendChild(defaultOption);
+                
+                // Agregar horarios disponibles
+                horarios.forEach(hora => {
+                    const option = document.createElement('option');
+                    option.value = hora;
+                    option.textContent = hora;
+                    horaSelect.appendChild(option);
+                });
+            }, 800);
+        }
+
+        // Manejar envío del formulario
+        document.getElementById('nuevaCitaForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validar formulario
+            const fecha = document.getElementById('fechaCita').value;
+            const hora = document.getElementById('horaCita').value;
+            const tipo = document.getElementById('tipoCita').value;
+            const doctor = document.getElementById('doctorCita').value;
+            const motivo = document.getElementById('motivoCita').value;
+            
+            if (!fecha || !hora || !tipo || !doctor || !motivo) {
+                alert('Por favor completa todos los campos obligatorios');
+                return;
+            }
+            
+            // Mostrar loading
+            document.getElementById('loadingOverlay').style.display = 'flex';
+            
+            // Simular envío a servidor
+            setTimeout(() => {
+                // Ocultar loading
+                document.getElementById('loadingOverlay').style.display = 'none';
+                
+                // Preparar resumen de la cita
+                const doctorText = document.getElementById('doctorCita').selectedOptions[0].textContent;
+                const tipoText = document.getElementById('tipoCita').selectedOptions[0].textContent;
+                const urgencia = document.getElementById('urgenciaCita').checked;
+                
+                const resumen = `
+                    <strong>Fecha:</strong> ${fecha}<br>
+                    <strong>Hora:</strong> ${hora}<br>
+                    <strong>Tipo:</strong> ${tipoText}<br>
+                    <strong>Doctor:</strong> ${doctorText}
+                    ${urgencia ? '<br><span class="text-warning"><strong>⚠️ Cita de urgencia</strong></span>' : ''}
+                `;
+                
+                document.getElementById('resumenCita').innerHTML = resumen;
+                
+                // Mostrar modal de éxito
+                const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                successModal.show();
+                
+                // Redirigir después de cerrar el modal
+                document.getElementById('successModal').addEventListener('hidden.bs.modal', function() {
+                    setTimeout(() => {
+                        window.location.href = 'Citas.HTML';
+                    }, 1000);
+                });
+            }, 2000);
+        });
+
+        // Animación de entrada para elementos
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animar elementos al cargar
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+
+        // Mejorar UX con validación en tiempo real
+        document.getElementById('tipoCita').addEventListener('change', function() {
+            if (this.value === 'emergencia') {
+                document.getElementById('urgenciaCita').checked = true;
+            }
+        });
+    </script>
+</body>
+</html>

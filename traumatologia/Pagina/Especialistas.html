@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Biblioteca Médica - MEDWEB</title>
+    <link rel="stylesheet" href="../CSS/Doctores.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <script src="../JS/Buscar_doctor.js" defer></script>
+</head>
+<body>
+
+<!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #009FE3;">
+  <div class="container">
+    <a class="navbar-brand" href="../Pagina/index.HTML">
+      <img src="../img/LOGO.jpg" alt="MedWeb" height="60" style="border-radius: 10px; background-color: white; padding: 5px;">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item">
+          <a class="nav-link text-white fw-bold" href="../Pagina/index.HTML">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white fw-bold" href="../Pagina/Especialistas.html">Especialistas</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-outline-light me-2 fw-bold" href="../Inicio-Registro/auth.php">Iniciar Sesión</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-light fw-bold" href="../Inicio-Registro/auth.php">Registrarse</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Biblioteca Médica</h2>
+
+    <div class="d-flex justify-content-end mb-4">
+        <input type="text" id="buscarEspecialidad" class="form-control w-25" placeholder="Buscar por especialidad">
+    </div>
+
+    <div class="row" id="contenedorDoctores">
+        <!-- Aquí se cargarán los médicos automáticamente -->
+    </div>
+    
+    <!-- Tarjetas de doctores organizadas en 2 columnas con 4 tarjetas cada una -->
+    <div class="row justify-content-center">
+        <!-- Primera columna -->
+        <div class="col-md-5">
+            <!-- Tarjeta 1 -->
+            <div class="card text-center shadow mb-4 doctor" data-especialidad="Cardiología">
+                <img src="../img/Doctor1.jpg" class="card-img-top" alt="Doctor">
+                <div class="card-body">
+                    <h5 class="card-title">Dr. Agustín Garza</h5>
+                    <p class="card-text">Médico Cardiólogo</p>
+                    <p>⭐⭐⭐⭐⭐</p>
+                    <a href="../Pagina/perfil_doctor.html" class="btn btn-primary">Ver Perfil</a>
+                </div>
+            </div>
+
+            <!-- Tarjeta 2 -->
+            <div class="card text-center shadow mb-4 doctor" data-especialidad="Cirugía">
+                <img src="../img/Doctor2.jpg" class="card-img-top" alt="Doctor">
+                <div class="card-body">
+                    <h5 class="card-title">Dr. Luis Garza</h5>
+                    <p class="card-text">Médico Cirujano</p>
+                    <p>⭐⭐⭐⭐</p>
+                    <a href="perfil doctor 3.html" class="btn btn-primary">Ver Perfil</a>
+                </div>
+            </div>
+
+            <!-- Tarjeta 3 -->
+            <div class="card text-center shadow mb-4 doctor" data-especialidad="Ginecología">
+                <img src="../img/Doctora3.jpg" class="card-img-top" alt="Doctor">
+                <div class="card-body">
+                    <h5 class="card-title">Dra. Alejandra Gutiérrez</h5>
+                    <p class="card-text">Médico Ginecólogo</p>
+                    <p>⭐⭐⭐⭐⭐</p>
+                    <a href="perfil doctor 5.html" class="btn btn-primary">Ver Perfil</a>
+                </div>
+            </div>
+
+            <!-- Tarjeta 4 -->
+            <div class="card text-center shadow mb-4 doctor" data-especialidad="Pediatría">
+                <img src="../img/Doctora4.jpg" class="card-img-top" alt="Doctor">
+                <div class="card-body">
+                    <h5 class="card-title">Dra. Karla Mendoza</h5>
+                    <p class="card-text">Médico Pediatra</p>
+                    <p>⭐⭐⭐⭐</p>
+                    <a href="perffil doctor 7.html" class="btn btn-primary">Ver Perfil</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Segunda columna -->
+        <div class="col-md-5">
+            <!-- Tarjeta 5 -->
+            <div class="card text-center shadow mb-4 doctor" data-especialidad="Neurología">
+                <img src="../img/Doctor5.jpg" class="card-img-top" alt="Doctor">
+                <div class="card-body">
+                    <h5 class="card-title">Dr. Roberto Sánchez</h5>
+                    <p class="card-text">Médico Neurólogo</p>
+                    <p>⭐⭐⭐⭐⭐</p>
+                    <a href="perfil doctor 2.htlm.html" class="btn btn-primary">Ver Perfil</a>
+                </div>
+            </div>
+
+            <!-- Tarjeta 6 -->
+            <div class="card text-center shadow mb-4 doctor" data-especialidad="Dermatología">
+                <img src="../img/Doctor6.jpg" class="card-img-top" alt="Doctor">
+                <div class="card-body">
+                    <h5 class="card-title">Dr. Mario López</h5>
+                    <p class="card-text">Médico Dermatólogo</p>
+                    <p>⭐⭐⭐⭐</p>
+                    <a href="perfil doctor 4.html" class="btn btn-primary">Ver Perfil</a>
+                </div>
+            </div>
+
+            <!-- Tarjeta 7 -->
+            <div class="card text-center shadow mb-4 doctor" data-especialidad="Oftalmología">
+                <img src="../img/Doctor7.jpg" class="card-img-top" alt="Doctor">
+                <div class="card-body">
+                    <h5 class="card-title">Dr. Juan Pérez</h5>
+                    <p class="card-text">Médico Oftalmólogo</p>
+                    <p>⭐⭐⭐⭐⭐</p>
+                    <a href="perfil doctor 6.html" class="btn btn-primary">Ver Perfil</a>
+                </div>
+            </div>
+
+            <!-- Tarjeta 8 -->
+            <div class="card text-center shadow mb-4 doctor" data-especialidad="Psiquiatría">
+                <img src="../img/Doctora8.jpg" class="card-img-top" alt="Doctor">
+                <div class="card-body">
+                    <h5 class="card-title">Dra. Fernanda Ruiz</h5>
+                    <p class="card-text">Médico Psiquiatra</p>
+                    <p>⭐⭐⭐⭐</p>
+                    <a href="perfil doctor 8.html" class="btn btn-primary">Ver Perfil</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+ <!-- Pie de página -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>MedWeb</h5>
+                    <p>Clínica especializada en traumatología y rehabilitación física.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contacto</h5>
+                    <p><i class="bi bi-geo-alt"></i> Av. Universidad 123, Monterrey</p>
+                    <p><i class="bi bi-telephone"></i> (81) 1234 5678</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Horario</h5>
+                    <p>Lunes-Viernes: 8:00 - 20:00</p>
+                    <p>Sábado: 9:00 - 14:00</p>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p>&copy; 2023 MedWeb. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

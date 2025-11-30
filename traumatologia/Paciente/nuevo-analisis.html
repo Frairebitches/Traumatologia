@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitar Nuevo Análisis</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .navbar {
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+        }
+
+        .main-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,.1);
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .header-section {
+            background-color: #0d6efd;
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .form-section {
+            padding: 2rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control, .form-select {
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            padding: 0.75rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+        }
+
+        .btn-primary {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+        }
+
+        .btn-primary:hover {
+            background-color: #0b5ed7;
+            border-color: #0a58ca;
+        }
+
+        .btn-outline-primary {
+            color: #0d6efd;
+            border-color: #0d6efd;
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+        }
+
+        .btn-outline-primary:hover {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+        }
+
+        .alert-info {
+            background-color: #e7f3ff;
+            border-color: #b8daff;
+            color: #0c5460;
+            border-radius: 6px;
+        }
+
+        .footer {
+            background-color: #f8f9fa !important;
+            border-top: 1px solid #dee2e6;
+            margin-top: 3rem;
+        }
+
+        .icon-text {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .form-section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading overlay -->
+    <div class="loading" id="loadingOverlay">
+        <div class="spinner"></div>
+    </div>
+    
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+
+        <div class="container">
+            <a class="navbar-brand" href="../Paciente/Analisis.HTML">
+                <i class="bi bi-heart-pulse-fill me-2"></i>
+                MedWeb
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../Paciente/index.HTML">
+                            <i class="bi bi-house-fill me-1"></i>Inicio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../Paciente/Analisis.HTML">
+                            <i class="bi bi-file-medical me-1"></i>Mis Análisis
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../Paciente/Citas.HTML">
+                            <i class="bi bi-calendar-check me-1"></i>Mis Citas
+                        </a>
+                    </li>
+                    <div class="navbar-nav">
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle me-1"></i>Henry Cavil
+                        </a>
+                        <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="../Paciente/configuracion-paciente.html"><i class="bi bi-gear me-2"></i>Configuración</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#" onclick="cerrarSesion()"><i class="bi bi-box-arrow-right me-2"></i>Cerrar Sesión</a></li>
+            </ul>
+                    </div>
+                </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="main-container">
+                    <div class="header-section">
+                        <h2 class="h4 mb-0">
+                            <i class="bi bi-plus-circle me-2"></i>
+                            Solicitar Nuevo Análisis
+                        </h2>
+                        <p class="mb-0 mt-2 opacity-75">Complete el formulario para solicitar un nuevo análisis médico</p>
+                    </div>
+                    
+                    <div class="form-section">
+                        <form id="nuevoAnalisisForm">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="tipoAnalisis" class="form-label">Tipo de Análisis</label>
+                                    <select class="form-select" id="tipoAnalisis" required>
+                                        <option value="" selected disabled>Seleccionar tipo</option>
+                                        <option value="radiografia">Radiografía</option>
+                                        <option value="resonancia">Resonancia Magnética</option>
+                                        <option value="tomografia">Tomografía</option>
+                                        <option value="ultrasonido">Ultrasonido</option>
+                                        <option value="laboratorio">Análisis de Laboratorio</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="doctorAnalisis" class="form-label">Doctor Responsable</label>
+                                    <select class="form-select" id="doctorAnalisis" required>
+                                        <option value="" selected disabled>Seleccionar doctor</option>
+                                        <option value="1">Dr. Luis Rodríguez - Traumatólogo</option>
+                                        <option value="2">Dra. Ana Martínez - Ortopedista</option>
+                                        <option value="3">Dr. Carlos Sánchez - Radiólogo</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="areaAnalisis" class="form-label">Área del Cuerpo a Analizar</label>
+                                <input type="text" class="form-control" id="areaAnalisis" placeholder="Ej: Rodilla derecha, columna lumbar..." required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="motivoAnalisis" class="form-label">Motivo del Análisis</label>
+                                <textarea class="form-control" id="motivoAnalisis" rows="3" placeholder="Describe los síntomas o razón del análisis..." required></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="historialRelevante" class="form-label">Historial Relevante (Opcional)</label>
+                                <textarea class="form-control" id="historialRelevante" rows="2" placeholder="Antecedentes médicos relevantes..."></textarea>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="documentosAnalisis" class="form-label">Documentos Adjuntos (Opcional)</label>
+                                <input class="form-control" type="file" id="documentosAnalisis" multiple accept=".pdf,.jpg,.jpeg,.png">
+                                <div class="form-text">Puedes subir estudios previos, recetas o referencias (PDF, JPG, PNG)</div>
+                            </div>
+
+                            <div class="alert alert-info">
+                                <div class="icon-text">
+                                    <i class="bi bi-info-circle"></i>
+                                    <span><strong>Información:</strong> Una vez enviada tu solicitud, recibirás un correo con las instrucciones para realizar el pago y agendar tu cita.</span>
+                                </div>
+                            </div>
+
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <a href="../Paciente/Analisis.HTML" class="btn btn-outline-primary">Cancelar</a>
+                                <button type="submit" class="btn btn-primary">Solicitar Análisis</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer py-3 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h6 class="text-primary">MedWeb</h6>
+                    <p class="text-muted small">Clínica especializada en traumatología y rehabilitación física.</p>
+                </div>
+                <div class="col-md-4">
+                    <h6 class="text-primary">Contacto</h6>
+                    <p class="text-muted small mb-1">
+                        <i class="bi bi-telephone me-1"></i>(81) 1234 5678
+                    </p>
+                    <p class="text-muted small">
+                        <i class="bi bi-envelope me-1"></i>info@medweb.com
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <h6 class="text-primary">Horario</h6>
+                    <p class="text-muted small mb-1">Lunes-Viernes: 8:00 - 20:00</p>
+                    <p class="text-muted small">Sábado: 9:00 - 14:00</p>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <span class="text-muted">© 2024 MedWeb - Todos los derechos reservados</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal de éxito -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">
+                        <i class="bi bi-check-circle me-2"></i>Solicitud Exitosa
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center py-4">
+                    <i class="bi bi-check-circle-fill text-success" style="font-size: 3rem;"></i>
+                    <h5 class="mt-3 mb-3">¡Solicitud Registrada!</h5>
+                    <p class="mb-2">Tu solicitud de análisis ha sido registrada correctamente.</p>
+                    <p class="text-muted">Recibirás un correo con las instrucciones para continuar.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="window.location.href='../Paciente/Analisis.html'">Entendido</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('nuevoAnalisisForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validar campos requeridos
+            const requiredFields = ['tipoAnalisis', 'doctorAnalisis', 'areaAnalisis', 'motivoAnalisis'];
+            let isValid = true;
+            
+            requiredFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (!field.value.trim()) {
+                    field.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                    field.classList.remove('is-invalid');
+                }
+            });
+            
+            if (isValid) {
+                // Mostrar modal de confirmación
+                const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                successModal.show();
+                
+                // Opcional: redirigir después de cerrar el modal
+                setTimeout(() => {
+                    // window.location.href = 'Analisis.HTML';
+                }, 3000);
+            }
+        });
+
+        // Limpiar validación cuando el usuario empiece a escribir
+        document.querySelectorAll('.form-control, .form-select').forEach(field => {
+            field.addEventListener('input', function() {
+                this.classList.remove('is-invalid');
+            });
+        });
+    </script>
+</body>
+</html>

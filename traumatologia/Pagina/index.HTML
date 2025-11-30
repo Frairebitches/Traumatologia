@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedWeb</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../CSS/styles.css">
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #009FE3;">
+  <div class="container">
+    <a class="navbar-brand" href="../Pagina/index.HTML">
+      <img src="../img/LOGO.jpg" alt="MedWeb" height="60" style="border-radius: 10px; background-color: white; padding: 5px;">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item">
+          <a class="nav-link text-white fw-bold" href="../Pagina/index.HTML">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white fw-bold" href="../Pagina/Especialistas.html">Especialistas</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-outline-light me-2 fw-bold" href="../Inicio-Registro/auth.html">Iniciar Sesión</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-light fw-bold" href="../Inicio-Registro/auth.html">Registrarse</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+    <!-- Contenido principal -->
+
+ <div class="container hero-section py-5">
+  <div class="row align-items-center g-5"> <!-- g-5 da espacio entre columnas -->
+    
+    <!-- Columna de texto con padding a la izquierda -->
+    <div class="col-md-6 d-flex flex-column justify-content-center ps-md-5">
+      <h1 class="display-4 fw-bold">Con los mejores especialistas.</h1>
+      <p class="lead">Encuentra al especialista ideal para ti o amplía tu red de pacientes si eres profesional de la salud.</p>
+      <div>
+        <a href="../Inicio-Registro/auth.html" class="btn btn-primary btn-lg">Iniciar Sesión</a>
+        <a href="../Inicio-Registro/auth.html" class="btn btn-outline-primary btn-lg ms-2">Registrate</a>
+      </div>
+    </div>
+
+    <!-- Columna de imagen -->
+    <div class="col-md-6 d-flex justify-content-center">
+      <img src="../img/Clinica.jpg" alt="Clínica" class="img-fluid rounded shadow" style="max-height: 400px; object-fit: cover;">
+    </div>
+
+  </div>
+</div>
+
+
+
+
+        <section class="my-5 py-4">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="bi bi-heart-pulse fs-1 text-primary"></i>
+                            <h3 class="h5 mt-3">Diagnóstico Preciso</h3>
+                            <p>Tecnología de punta para evaluar con máxima precisión.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="bi bi-people fs-1 text-primary"></i>
+                            <h3 class="h5 mt-3">Especialistas Certificados</h3>
+                            <p>Equipo médico con más de 10 años de experiencia.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="bi bi-graph-up fs-1 text-primary"></i>
+                            <h3 class="h5 mt-3">Rehabilitación Personalizada</h3>
+                            <p>Programas de recuperación adaptados a cada paciente.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <main class="container my-5">
+            <section class="my-5 bg-light p-4 rounded">
+                <h2 class="text-center mb-4">Testimonios de Pacientes</h2>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <p class="card-text">"Excelente atención después de mi fractura de tobillo. El seguimiento postoperatorio fue impecable."</p>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <div class="d-flex align-items-center">
+                                    <img src="../img/Testimonio1.jpg" class="rounded-circle me-3" width="50" height="50" alt="Paciente">
+                                    <div>
+                                        <h6 class="mb-0">Osvaldo Flores</h6>
+                                        <small class="text-muted">Paciente con fractura</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Más testimonios... -->
+                     <div class="col-md-4 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <p class="card-text">"Excelente atención en mis analisis medicos. El seguimiento postoperatorio fue impecable."</p>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <div class="d-flex align-items-center">
+                                    <img src="../img/Testimonio2.jpg" class="rounded-circle me-3" width="50" height="50" alt="Paciente">
+                                    <div>
+                                        <h6 class="mb-0">Bartolomeo Allen</h6>
+                                        <small class="text-muted">Paciente con problemas cardiacos</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>MedWeb</h5>
+                    <p>Clínica especializada en traumatología y rehabilitación física.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contacto</h5>
+                    <p><i class="bi bi-geo-alt"></i> Av. Universidad 123, Monterrey</p>
+                    <p><i class="bi bi-telephone"></i> (81) 1234 5678</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Horario</h5>
+                    <p>Lunes-Viernes: 8:00 - 20:00</p>
+                    <p>Sábado: 9:00 - 14:00</p>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p>&copy; 2023 MedWeb. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="../JS/main.js"></script>
+
+
+</body>
+</html>

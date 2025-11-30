@@ -1,0 +1,69 @@
+/* Pantallas medianas (tablets) */
+@media (max-width: 992px) {
+    .hero-section .col-md-6 {
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+    
+    .card {
+        margin-bottom: 1.5rem;
+    }
+    
+    footer .col-md-4 {
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* Pantallas pequeñas (móviles) */
+@media (max-width: 576px) {
+    .navbar-brand img {
+        height: 30px;
+    }
+    
+    .display-4 {
+        font-size: 1.8rem;
+    }
+    
+    .btn-lg {
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+    }
+    
+    .table-responsive {
+        border: 0;
+    }
+    
+    .table-responsive table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    .table-responsive thead {
+        display: none;
+    }
+    
+    .table-responsive tr {
+        display: block;
+        margin-bottom: 1rem;
+        border: 1px solid #dee2e6;
+        border-radius: 0.25rem;
+    }
+    
+    .table-responsive td {
+        display: block;
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+        border-bottom: 1px solid #dee2e6;
+    }
+    
+    .table-responsive td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 1rem;
+        width: calc(50% - 1rem);
+        padding-right: 1rem;
+        text-align: left;
+        font-weight: bold;
+    }
+}
